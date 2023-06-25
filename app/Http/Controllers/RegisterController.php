@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-
     public function store(RegisterRequest $request)
     {
         $attributes = $request->validated();

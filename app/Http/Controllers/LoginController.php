@@ -40,4 +40,3 @@ class LoginController extends Controller
         return response()->json(['message' => 'Logged Out' ], 204);
     }
 }
-
