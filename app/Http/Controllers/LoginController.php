@@ -12,30 +12,32 @@ class LoginController extends Controller
 {
     public function LogIn(LoginRequest $request)
     {
-        $attributes = $request-> validated();
+        $attributes = $request->validated();
+        $loginInput = $attributes['email'];
 
-        if (!Auth::attempt($attributes)) {
+        $user = User::where('email', $loginInput)
+                    ->orWhere('name', $loginInput)
+                    ->first();
+
+        if (!$user || !Auth::attempt(['email' => $user->email, 'password' => $attributes['password']])) {
             return response()->json([
                 'message' => 'Invalid login details',
-            ], 401 );
+            ], 401);
         }
 
         return response()->json([
             'message' => 'User logged in successfully',
             'user' => Auth::user(),
         ], 201);
-
     }
 
     public function logOut(Request $request)
     {
-        Auth::guard()->logout();
-
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return response()->json([], 204);
+        return response()->json(['message' => 'Logged Out' ], 204);
     }
 }
 
