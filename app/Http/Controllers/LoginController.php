@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function LogIn(LoginRequest $request)
+    public function LogIn(LoginRequest $request): JsonResponse
     {
         $attributes = $request->validated();
         $loginInput = $attributes['email'];
@@ -31,7 +31,7 @@ class LoginController extends Controller
         ], 201);
     }
 
-    public function logOut(Request $request)
+    public function logOut(Request $request): JsonResponse
     {
         $request->session()->invalidate();
 
