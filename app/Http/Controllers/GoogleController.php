@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function redirect(): RedirectResponse
+    public function redirect()
     {
         return Socialite::driver('google')->stateless()->redirect();
     }
 
-    public function callback(): Response
+    public function callback()
     {
         $user = Socialite::driver('google')->stateless()->user();
 
@@ -30,6 +31,8 @@ class GoogleController extends Controller
             ]);
 
             auth()->login($saveUser);
+            request()->session()->regenerate();
+            return app('redirect')->away(env('APP_FRONT_URL') . '/newsfeed')->withCookie(cookie('authenticated', 'true'));
             if (auth()->check()) {
                 return response('', 200);
             } else {
@@ -37,7 +40,8 @@ class GoogleController extends Controller
             }
         } else {
             auth()->login($user);
-            return response('', 200);
+            request()->session()->regenerate();
+            return app('redirect')->away(env('APP_FRONT_URL') . '/newsfeed')->withCookie(cookie('authenticated', 'true'));
         }
     }
 }
