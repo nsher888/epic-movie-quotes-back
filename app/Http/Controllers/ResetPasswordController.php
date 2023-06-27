@@ -8,13 +8,15 @@ use App\Http\Requests\storeEmailRequest;
 use App\Http\Requests\storeResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-	public function sendResetLink(storeEmailRequest $request)
+	public function sendResetLink(storeEmailRequest $request): JsonResponse
 	{
 		$request->validated();
 		$status = Password::sendResetLink(
@@ -26,12 +28,12 @@ class ResetPasswordController extends Controller
 		 : response()->json('email not found', 404);
 	}
 
-	public function showResetForm( $token)
+	public function showResetForm( $token): RedirectResponse
 	{
 		return redirect(env('APP_FRONT_URL') . '/' . '?token=' . $token . '&email=' . request()->email);
 	}
 
-	public function resetPassword(ResetRequest $request)
+	public function resetPassword(ResetRequest $request): JsonResponse
 	{
 		$request->validated();
 		$status = Password::reset(

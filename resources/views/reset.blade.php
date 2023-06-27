@@ -1,1 +1,0 @@
-<a href="http://localhost:3000/reset/{{ $token }}">Click To Reset Password</a>
