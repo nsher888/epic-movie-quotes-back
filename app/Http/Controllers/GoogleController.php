@@ -17,8 +17,12 @@ class GoogleController extends Controller
 
     public function callback()
     {
-        $user = Socialite::driver('google')->stateless()->user();
+        $user = Socialite::driver('google')->user();
+        return  response()->json($user);
+    }
 
+    public function login()
+    {
         $googleUser = Socialite::driver('google')->stateless()->user();
         $user = User::where('email', $googleUser->getEmail())->first();
         if (!$user) {
@@ -27,12 +31,9 @@ class GoogleController extends Controller
                 'email'     => $googleUser->getEmail(),
                 'thumbnail' => $googleUser->getAvatar(),
                 'google_id' => $googleUser->getId(),
-                'provider'  => 'google',
             ]);
 
             auth()->login($saveUser);
-            request()->session()->regenerate();
-            return app('redirect')->away(env('APP_FRONT_URL') . '/newsfeed')->withCookie(cookie('authenticated', 'true'));
             if (auth()->check()) {
                 return response('', 200);
             } else {
@@ -40,8 +41,7 @@ class GoogleController extends Controller
             }
         } else {
             auth()->login($user);
-            request()->session()->regenerate();
-            return app('redirect')->away(env('APP_FRONT_URL') . '/newsfeed')->withCookie(cookie('authenticated', 'true'));
+            return  response('', 200);
         }
     }
 }

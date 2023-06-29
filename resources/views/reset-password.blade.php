@@ -14,10 +14,10 @@
         </div>
         <p style="margin-bottom: 26px">Hello ! </p>
         <p style="margin-bottom: 34px"> Thanks for joining Movie quotes! We really appreciate it. Please click the
-            button below to verify your account:
+            button below to reset your password:
         </p>
         <a href="{{ $url }}" style="max-width: 200px; padding:7px 13px;color:white;background:#E31221;text-decoration: none;font-weight: 400;
-            border-radius:4px">Verify account</a>
+            border-radius:4px">Reset Password</a>
         <p style="margin-bottom: 24px; margin-top:40px">If clicking doesn't work, you can try copying and pasting it to
             your browser:</p>
         <a href="{{ $url }}" style="margin-bottom: 40px;color:#DDCCAA;text-decoration: none;cursor: pointer">

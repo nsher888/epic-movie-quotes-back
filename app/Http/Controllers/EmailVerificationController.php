@@ -23,7 +23,7 @@ class EmailVerificationController extends Controller
         $request->fulfill();
         $user = User::where('id', $request->id)->first();
         Auth::login($user);
-		$user->save();
-		return response()->json('Email has been Verified', 200);
+        $user->save();
+        return response()->json('Email has been Verified', 200);
     }
 }
