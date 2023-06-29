@@ -17,12 +17,6 @@ class GoogleController extends Controller
         return Socialite::driver('google')->stateless()->redirect();
     }
 
-    public function callback(): JsonResponse
-    {
-        $user = Socialite::driver('google')->user();
-        return  response()->json($user);
-    }
-
     public function login(): Response
     {
         $googleUser = Socialite::driver('google')->stateless()->user();

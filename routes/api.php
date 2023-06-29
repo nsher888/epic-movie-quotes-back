@@ -34,6 +34,5 @@ Route::controller(EmailVerificationController::class)->group(function () {
 
 Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/google/redirect', 'redirect');
-    Route::get('/auth/google/callback', 'callback');
     Route::post('/auth/google/login', 'login');
 });
