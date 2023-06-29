@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Client\Response as ClientResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -14,10 +17,8 @@ class GoogleController extends Controller
         return Socialite::driver('google')->stateless()->redirect();
     }
 
-    public function callback(): Response
+    public function login(): Response
     {
-        $user = Socialite::driver('google')->stateless()->user();
-
         $googleUser = Socialite::driver('google')->stateless()->user();
         $user = User::where('email', $googleUser->getEmail())->first();
         if (!$user) {
@@ -26,7 +27,6 @@ class GoogleController extends Controller
                 'email'     => $googleUser->getEmail(),
                 'thumbnail' => $googleUser->getAvatar(),
                 'google_id' => $googleUser->getId(),
-                'provider'  => 'google',
             ]);
 
             auth()->login($saveUser);
@@ -37,7 +37,7 @@ class GoogleController extends Controller
             }
         } else {
             auth()->login($user);
-            return response('', 200);
+            return  response('', 200);
         }
     }
 }
