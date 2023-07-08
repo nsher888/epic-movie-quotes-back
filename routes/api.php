@@ -39,3 +39,4 @@ Route::controller(GoogleController::class)->group(function () {
 });
 
 Route::put('/users/name', [UserController::class, 'updateName']);
+Route::put('/users/password', [UserController::class, 'changePassword']);
