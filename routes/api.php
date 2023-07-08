@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,5 @@ Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/google/redirect', 'redirect');
     Route::post('/auth/google/login', 'login');
 });
+
+Route::put('/users/name', [UserController::class, 'updateName']);
