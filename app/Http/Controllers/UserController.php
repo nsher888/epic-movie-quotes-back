@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function updateName(Request $request)
+    public function updateName(Request $request): JsonResponse
     {
         $user = Auth::user();
 
@@ -27,7 +28,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User name updated successfully']);
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(Request $request): JsonResponse
     {
         $request->validate([
             'password' => 'required|min:8|max:15|regex:/^[a-z0-9]+$/',
@@ -41,7 +42,7 @@ class UserController extends Controller
         return response()->json(['message' => 'Password changed successfully']);
     }
 
-    public function uploadAvatar(Request $request)
+    public function uploadAvatar(Request $request): JsonResponse
     {
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
