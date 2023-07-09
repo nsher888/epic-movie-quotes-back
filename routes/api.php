@@ -31,6 +31,7 @@ Route::controller(ResetPasswordController::class)->group(function () {
 Route::controller(EmailVerificationController::class)->group(function () {
     Route::get('/email/verify', 'notice')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'verify')->middleware('verify')->name('verification.verify');
+    Route::post('/profile/email/change', 'changeEmail')->name('profile.email.change');
 });
 
 Route::controller(GoogleController::class)->group(function () {
