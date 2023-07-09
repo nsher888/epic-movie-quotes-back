@@ -25,8 +25,10 @@ class GoogleController extends Controller
             $saveUser = User::create([
                 'name'      => $googleUser->getName(),
                 'email'     => $googleUser->getEmail(),
-                'thumbnail' => $googleUser->getAvatar(),
-                'google_id' => $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'provider_id' => $googleUser->getId(),
+                'provider' => 'google',
+
             ]);
 
             auth()->login($saveUser);

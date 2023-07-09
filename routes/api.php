@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,14 @@ Route::controller(ResetPasswordController::class)->group(function () {
 Route::controller(EmailVerificationController::class)->group(function () {
     Route::get('/email/verify', 'notice')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'verify')->middleware('verify')->name('verification.verify');
+    Route::post('/profile/email/change', 'changeEmail')->name('profile.email.change');
 });
 
 Route::controller(GoogleController::class)->group(function () {
     Route::get('/auth/google/redirect', 'redirect');
     Route::post('/auth/google/login', 'login');
 });
+
+Route::put('/users/name', [UserController::class, 'updateName']);
+Route::put('/users/password', [UserController::class, 'changePassword']);
+Route::post('/users/avatar', [UserController::class, 'uploadAvatar']);
