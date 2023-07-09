@@ -35,6 +35,7 @@ class EmailVerificationController extends Controller
 
     public function changeEmail(Request $request)
     {
+        /** @var \App\Models\User $user **/
         $user = Auth::user();
 
         $this->validate($request, [

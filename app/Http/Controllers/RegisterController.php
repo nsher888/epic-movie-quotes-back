@@ -15,12 +15,15 @@ class RegisterController extends Controller
 
         $user = User::create($attributes);
 
+        $user->avatar = url('/images/avatars/default.png');
+
+        $user->save();
+
         event(new Registered($user));
 
         return response()->json([
             'message' => 'User created successfully',
             'user' => $user,
         ], 201);
-
     }
 }

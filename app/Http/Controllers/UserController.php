@@ -40,4 +40,23 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Password changed successfully']);
     }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $file = $request->file('avatar');
+
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs('public/images/avatars', $filename);
+
+        $user = auth()->user();
+        $user->avatar = url('storage/images/avatars/' . $filename);
+        $user->save();
+
+        return response()->json(['message' => 'Avatar uploaded successfully']);
+    }
 }
