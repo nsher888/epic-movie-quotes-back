@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
@@ -42,3 +43,7 @@ Route::controller(GoogleController::class)->group(function () {
 Route::put('/users/name', [UserController::class, 'updateName']);
 Route::put('/users/password', [UserController::class, 'changePassword']);
 Route::post('/users/avatar', [UserController::class, 'uploadAvatar']);
+
+
+Route::get('user/movies', [MovieController::class, 'index']);
+Route::post('user/movies', [MovieController::class, 'store']);
