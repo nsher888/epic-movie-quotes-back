@@ -40,10 +40,16 @@ Route::controller(GoogleController::class)->group(function () {
     Route::post('/auth/google/login', 'login');
 });
 
-Route::put('/users/name', [UserController::class, 'updateName']);
-Route::put('/users/password', [UserController::class, 'changePassword']);
-Route::post('/users/avatar', [UserController::class, 'uploadAvatar']);
+Route::controller(UserController::class)->group(function () {
+    Route::put('/users/name', 'updateName');
+    Route::put('/users/password', 'changePassword');
+    Route::post('/users/avatar', 'uploadAvatar');
+});
 
-
-Route::get('user/movies', [MovieController::class, 'index']);
-Route::post('user/movies', [MovieController::class, 'store']);
+Route::controller(MovieController::class)->group(function () {
+    Route::get('user/movies', 'index');
+    Route::get('user/movies/{id}', 'get');
+    Route::post('user/movies', 'store');
+    Route::delete('user/movies/{id}', 'destroy');
+    Route::put('user/movies/{id}', 'update');
+});

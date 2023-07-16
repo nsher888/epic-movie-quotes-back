@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMovieRequest extends FormRequest
+class EditMovieRequest extends FormRequest
 {
     public function rules()
     {
@@ -15,9 +15,9 @@ class StoreMovieRequest extends FormRequest
             'director_ka'          => 'required',
             'description_en'       => 'required',
             'description_ka'       => 'required',
-            'genre'                => 'nullable',
+            'genre'                => 'optional',
             'year'                 => 'required',
-            'image'                => 'required',
+            'image'                => 'nullable',
         ];
     }
 }
