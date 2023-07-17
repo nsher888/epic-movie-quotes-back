@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
@@ -39,6 +40,16 @@ Route::controller(GoogleController::class)->group(function () {
     Route::post('/auth/google/login', 'login');
 });
 
-Route::put('/users/name', [UserController::class, 'updateName']);
-Route::put('/users/password', [UserController::class, 'changePassword']);
-Route::post('/users/avatar', [UserController::class, 'uploadAvatar']);
+Route::controller(UserController::class)->group(function () {
+    Route::put('/users/name', 'updateName');
+    Route::put('/users/password', 'changePassword');
+    Route::post('/users/avatar', 'uploadAvatar');
+});
+
+Route::controller(MovieController::class)->group(function () {
+    Route::get('user/movies', 'index');
+    Route::get('user/movies/{id}', 'show');
+    Route::post('user/movies', 'store');
+    Route::delete('user/movies/{id}', 'destroy');
+    Route::put('user/movies/{id}', 'update');
+});
