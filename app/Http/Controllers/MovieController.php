@@ -45,7 +45,7 @@ class MovieController extends Controller
         return response()->json('success', 201);
     }
 
-    public function get($id): JsonResponse
+    public function show($id): JsonResponse
     {
         $movie = Movie::find($id);
         return response()->json([

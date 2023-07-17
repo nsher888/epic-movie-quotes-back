@@ -11,8 +11,6 @@ class Movie extends Model
     use HasFactory;
     use HasTranslations;
 
-    protected $guarded = [];
-
     public $translatable = ['title', 'director', 'description'];
 
     protected $fillable = [

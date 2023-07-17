@@ -48,7 +48,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(MovieController::class)->group(function () {
     Route::get('user/movies', 'index');
-    Route::get('user/movies/{id}', 'get');
+    Route::get('user/movies/{id}', 'show');
     Route::post('user/movies', 'store');
     Route::delete('user/movies/{id}', 'destroy');
     Route::put('user/movies/{id}', 'update');
